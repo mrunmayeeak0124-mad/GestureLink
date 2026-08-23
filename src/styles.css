@@ -1,0 +1,174 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * GESTURELINK design system — deep abyssal teal + electric cyan,
+ * extracted from the intro film. Dark-first, WCAG AAA contrast.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-glow: var(--glow);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --background: oklch(0.19 0.045 214);
+  --foreground: oklch(0.97 0.015 200);
+
+  --surface: oklch(0.245 0.05 210);
+  --surface-2: oklch(0.29 0.055 208);
+
+  --card: oklch(0.245 0.05 210);
+  --card-foreground: oklch(0.97 0.015 200);
+  --popover: oklch(0.245 0.05 210);
+  --popover-foreground: oklch(0.97 0.015 200);
+
+  --primary: oklch(0.86 0.15 190);
+  --primary-foreground: oklch(0.17 0.05 216);
+  --glow: oklch(0.92 0.13 188);
+
+  --secondary: oklch(0.33 0.06 206);
+  --secondary-foreground: oklch(0.97 0.015 200);
+
+  --muted: oklch(0.29 0.05 209);
+  --muted-foreground: oklch(0.86 0.03 199);
+
+  --accent: oklch(0.78 0.13 178);
+  --accent-foreground: oklch(0.17 0.05 216);
+
+  --destructive: oklch(0.7 0.19 24);
+  --destructive-foreground: oklch(0.17 0.05 216);
+
+  --border: oklch(0.98 0.02 195 / 18%);
+  --input: oklch(0.98 0.02 195 / 22%);
+  --ring: oklch(0.86 0.15 190);
+
+  --gradient-abyss: radial-gradient(
+      120% 90% at 50% -10%,
+      oklch(0.34 0.09 198 / 0.75),
+      transparent 60%
+    ),
+    radial-gradient(80% 60% at 10% 100%, oklch(0.3 0.08 190 / 0.5), transparent 70%);
+  --gradient-glow: linear-gradient(135deg, var(--glow), var(--accent));
+  --shadow-glow: 0 0 0 1px oklch(0.86 0.15 190 / 0.35), 0 14px 45px -12px oklch(0.86 0.15 190 / 0.55);
+  --shadow-soft: 0 20px 60px -30px oklch(0.05 0.03 220 / 0.9);
+}
+
+/* Accessibility preference: extra-high contrast */
+.hc {
+  --background: oklch(0.13 0.03 216);
+  --foreground: oklch(1 0 0);
+  --surface: oklch(0.18 0.035 212);
+  --surface-2: oklch(0.23 0.04 210);
+  --card: oklch(0.18 0.035 212);
+  --muted-foreground: oklch(0.97 0.01 200);
+  --border: oklch(1 0 0 / 45%);
+  --primary: oklch(0.92 0.15 190);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: var(--gradient-abyss);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: calc(1rem * var(--text-scale, 1));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--surface) 62%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--border);
+}
+
+@utility glow-ring {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 28px color-mix(in oklab, var(--glow) 55%, transparent);
+}
+
+@utility grid-lines {
+  background-image: linear-gradient(
+      color-mix(in oklab, var(--primary) 12%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, color-mix(in oklab, var(--primary) 12%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility cursor-none-fine {
+  @media (pointer: fine) {
+    cursor: none;
+  }
+}
